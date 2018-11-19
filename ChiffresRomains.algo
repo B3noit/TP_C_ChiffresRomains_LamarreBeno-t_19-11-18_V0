@@ -1,0 +1,420 @@
+ALGO PSEUDOCODE
+
+ //DEC TO ROME
+
+ //BUT : Convertir des chiffres romains en décimaux et vice versa.
+ //PRINCIPE : L'utilisateur sélectionne le type de conversion qu'il souhaite effectué, entre le chiffre, on vérifie qu'il est valide,
+ //           on applique la bonne équation pour retourner la bonne valeur.
+ //ENTREE : Un entier compris entre 1 et 3999 (qu'on convertie en tableau d'entier)ou, un chiffre romain c'est à dire une chaîne de caractères.
+ //SORTIE : La valeure correspondant à l'entrée, elle sera elle aussi soit un entier compris entre 1 et 3999 (qu'on convertie en tableau d'entier)ou, un chiffre romain c'est à dire une chaîne de caractères.
+
+ CONST
+ MAX <- 3999
+ MIN <-	 1
+ M  <- 1000
+ CM <- 900
+ D <-500
+ CD <- 400 
+ C <- 100
+ XC <- 90
+ L <- 50
+ XL <- 40
+ X <- 10
+ IX <- 9
+ V <- 5
+ IV <- 4
+ I <- 1
+ 
+
+
+
+
+
+
+ //////FONCTION veriTaille////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description : La fonction verifTaille permet de s'assurer que l'entier à convertir est compris entre 1 et 399
+ //
+ // Entrée : La chaine constituant le chiffre romain.
+ //
+ // Sortie : La fonction retourne un BOOLEEN vrai ou faux.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FONCTION verifTaille (nb : ENTIER) : BOOLEEN
+debut
+	verifTaille <- FAUX
+	SI (nb <= MAX ET nb >= MIN) ALORS
+	verifTaille <- VRAI
+	FINSI
+FINPROCEDURE
+
+
+
+
+ ///////PROCEDURE saisiEnt///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description : La procedure saisiEnt permet d'entrer un entier à convertir en chiffre romain.
+ //
+ // Entrée : Un entier (Pouvant être 0 ou supérieur à 3999).
+ //
+ // Sortie : Un entier compris entre 1 et 3999.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE saisiEnt (VAR nb : ENTIER)
+debut
+	ECRIRE "Saisissez un entier compris entre 1 et 3999 à écrire en chiffres romains"
+	LIRE nb
+
+	TANTQUE (verifTaille(nb)=FAUX) FAIRE
+		ECRIRE "Le nombre doit être compris entre 1 et 3999 recommencez svp."
+		LIRE nb
+	FINTANTQUE
+FINPROCEDURE		
+
+
+
+
+ //////PROCEDURE convEntToRom////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure convEntToRom soustrait peu a peu des sommes correspondant à des chiffres romains (de la plus grande à la plus petite.)
+ //                pour justement recomposer un chiffre romain.
+ //
+ // Entrée :Un entier compris entre 1 et 3999
+ //
+ // Sortie : Un chiffre romain correspondant à l'entier saisi.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE convEntToRom (VAR cChaine : CHAINE DE CARACTERE, nb : ENTIER)
+debut
+REPETER
+	SI (nb >= M) ALORS
+		nb <- nb-M
+		cChaine <- cChaine & "M"
+		SINON SI (nb >= CM) ALORS
+			nb <- nb - CM
+			cChaine <- cChaine & "CM"
+			SINON SI (nb >= D) ALORS
+				nb <- nb-D
+				cChaine <- cChaine & "D"
+				SINON SI (nb >= CD) ALORS
+					nb <- nb-CD 
+					cChaine <- cChaine & "CD"
+					SINON SI (nb >= C) ALORS
+						nb <- nb-C
+						cChaine <- cChaine & "C" 
+						SINON SI (nb >=XC) ALORS
+							nb <- nb-XC
+							cChaine <- cChaine & "XC"
+							SINON SI (nb >=L) ALORS
+								nb <- nb-L
+								cChaine <- cChaine & "L"
+								SINON SI (nb >=XL) ALORS
+									nb <- nb-XL
+									cChaine <- cChaine & "XL"
+									SINON SI (nb >=X) ALORS
+										nb <- nb-X
+										cChaine <- cChaine & "X"
+										SINON SI (nb >=IX) ALORS
+											nb <- nb-IX
+											cChaine <- cChaine & "IX"
+											SINON SI (nb >=V) ALORS
+												nb <- nb -V
+												cChaine <- cChaine & "V"
+												SINON SI (nb >=IV) ALORS
+													nb <- nb -IV 
+													cChaine <- cChaine & "IV"
+													SINON SI (nb >=I) ALORS
+														nb <- nb -I 
+														cChaine <- cChaine & "I"
+													FINSI
+												FINSI
+											FINSI
+										FINSI
+									FINSI
+								FINSI
+							FINSI
+						FINSI
+					FINSI						
+				FINSI
+			FINSI
+		FINSI
+	FINSI
+JUSQU'A (nb=0)
+
+FINPROCEDURE
+
+
+
+
+
+
+////////////////////////////////////////////
+PROCEDURE afficheRom(cChaine : CHAINE DE CARACTERE, nEntier : ENTIER)
+debut
+
+ECRIRE nEntier & " correspond a : " & cChaine & " en chiffre romains."
+
+FINPROCEDURE
+
+
+
+
+ //////PROCEDURE entToRom////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure entToRom structure l'ensemble des procédures permettant de convertir un entier en  chiffre romain.
+ //
+ // Entrée : 
+ //
+ // Sortie : Toutes les procédures permettant de convertir un entier en  chiffre romain.
+ //
+ // Note : aucune
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE entToRom ()
+var
+nEntier : ENTIER
+cChaine : CHAINE DE CARACTERE
+
+debut
+
+saisiEnt(nEntier)
+convEntToRom(cChaine,nEntier)
+afficheRom (cChaine,nEntier)
+
+FINPROCEDURE
+
+
+
+
+ // PARTIE CONVERTION ROMAIN VERS ENTIER
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //////FONCTION verifRom/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description : La fonction verifRom permet de constater si les caractères constituant le chiffre romain sont bien des chiffres romains.
+ //
+ // Entrée : La chaine constituant le chiffre romain.
+ //
+ // Sortie : La fonction retourne un BOOLEEN vrai ou faux.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FONCTION verifRom (cChaine  :CHAINE DE CARACTERE) : BOOLEEN
+var
+tailleChaine,nCpt,nPos : ENTIER
+
+debut
+
+nPos <-50 //Un chiffre romain n'a pas 50 caractère. 
+verifRom <- VRAI
+
+tailleChaine <- LONGEUR(cChaine)
+
+POUR nCpt DE MIN A tailleChaine FAIRE
+	SI (cChaine[nCpt] <>"I" ET cChaine[nCpt] <>"V" ET cChaine[nCpt] <>"X" ET cChaine[nCpt] <>"L" ET cChaine[nCpt] <>"C" ET cChaine[nCpt] <>"D" ET cChaine[nCpt] <>"M") ALORS
+		nPos <-nCpt
+		ECRIRE "caratere faux en position " & nPos 
+	FINSI
+FINPOUR
+
+SI (nPos <> 50) ALORS //Si nPos est <> 50 un caratere de la chaine n'était pas un chiffre romain.
+	verifRom <-FAUX
+FINSI
+
+FINPROCEDURE
+
+
+
+
+ 	////////////////////////////////////////////////////////////////////////////
+PROCEDURE saisiRom (VAR cChaine : CHAINE DE CARACTERE)
+debut
+	ECRIRE "Saisissez un nombre romain (la conversion peut être fausse pas si vous avez mal saisi votre chiffre romain)"
+	LIRE cChaine
+
+	TANTQUE (verifRom(cChaine)=FAUX) FAIRE
+		ECRIRE "Réécrivez votre chiffre romain avec des chiffres romains valides."
+		LIRE cChaine
+	FINTANTQUE
+
+FINPROCEDURE
+
+
+
+
+ //////PROCEDURE convRomToEnt////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure convRomToEnt scan la chaine à l'envers pour ajouter les sommes correspondant aux différents chiffres romains à l'entier de convertion.
+ //
+ // Entrée :Un chiffre romain contenant que des chiffres romain(pouvant ne pas exister).
+ //
+ // Sortie : L'entier correspondant au chiffre romain à convertir.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE convRomToEnt (VAR nEntier : ENTIER ; cChaine : CHAINE DE CARACTERE)
+var
+tailleChaine,cpt : ENTIER
+
+debut
+
+tailleChaine <- LONGEUR(cChaine)
+
+POUR cpt DE MIN A tailleChaine FAIRE
+
+    SI ((cChaine[tailleChaine-cpt+1] ="I")  ET (cChaine[tailleChaine-cpt+2] ="V")) ALORS
+ 		nEntier = nEntier - I
+ 		
+ 		SINON SI ((cChaine[tailleChaine-cpt+1] ="I") ET (cChaine[tailleChaine-cpt+2] ="X")) ALORS
+ 			nEntier = nEntier - I
+ 		
+ 			SINON SI (cChaine[tailleChaine-cpt+1] ="I") ALORS
+ 				nEntier = nEntier + I
+ 		 
+ 				SINON SI (cChaine[tailleChaine-cpt+1] ="V") ALORS
+ 					nEntier = nEntier + V
+ 		
+ 					SINON SI ((cChaine[tailleChaine-cpt+1] ="X)" ET (cChaine[tailleChaine-cpt+2] ="L")) ALORS
+ 						nEntier = nEntier - X
+
+ 						SINON SI ((cChaine[tailleChaine-cpt+1] ="X") ET (cChaine[tailleChaine-cpt+2] ="C")) ALORS
+ 							nEntier = nEntier - X
+
+ 							SINON SI (cChaine[tailleChaine-cpt+1] ="X") ALORS
+ 								nEntier = nEntier + X
+
+ 								SINON SI (cChaine[tailleChaine-cpt+1] ="L") ALORS
+ 									nEntier = nEntier + L
+
+ 									SINON SI ((cChaine[tailleChaine-cpt+1] ="C") ET (cChaine[tailleChaine-cpt+2] ="D")) ALORS
+ 										nEntier = nEntier - C 
+
+ 										SINON SI ((cChaine[tailleChaine-cpt+1] ="C") ET (cChaine[tailleChaine-cpt+2] ="M")) ALORS
+ 											nEntier = nEntier - C
+
+ 											SINON SI (cChaine[tailleChaine-cpt+1] ="C") ALORS
+ 												nEntier = nEntier + C
+
+ 												SINON SI (cChaine[tailleChaine-cpt+1] ="D") ALORS
+ 													nEntier = nEntier + D
+
+ 													SINON SI ((cChaine[tailleChaine-cpt+1] ="M") ALORS
+ 														nEntier = nEntier + M
+
+
+ 													FINSI
+ 												FINSI
+ 											FINSI
+ 										FINSI
+ 									FINSI
+ 								FINSI
+ 							FINSI
+ 						FINSI
+ 					FINSI
+ 				FINSI
+ 			FINSI
+ 		FINSI
+ 	FINSI
+
+FINPOUR	
+FINPROCEDURE	
+
+
+
+
+ //////PROCEDURE afficheEnt//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure afficheEnt permet d'afficher le résultat la convertion souhaité par l'utilisateur, dans ce cas Romain vers Entier
+ //
+ // Entrée : 
+ //
+ // Sortie :Le résultat la convertion souhaité par l'utilisateur, dans ce cas Romain vers Entier
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE afficheEnt(cChaine : CHAINE DE CARACTERE, nEntier : ENTIER)
+debut
+
+		ECRIRE cChaine  & " en chiffres romains correspond a : " & nEntier & " en nombres décimaux."
+
+FINPROCEDURE
+
+
+
+
+ //////PROCEDURE romToEnt////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure romToEnd structure l'ensemble des procédures permettant de convertir un chiffre romain en entier.
+ //
+ // Entrée : 
+ //
+ // Sortie : Toutes les procédures permettant de convertir un chiffre romain en entier.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE romToEnt ()
+var
+nEntier : ENTIER
+cChaine : CHAINE DE CARACTERE
+
+debut
+
+saisiRom(cChaine)
+convRomToEnt (cChaine,nEntier)
+afficheEnt (cChaine,nEntier)
+
+FINPROCEDURE
+
+
+
+
+ //////PROCEDURE choix///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure choix permet de dissocier et de lancer que la convertion choisit.
+ //
+ // Entrée : Un entier
+ //
+ // Sortie : La suite des procédures permettant d'aboutir à la convertion souhaité par l'utilisateur.
+ //
+ // Note : Si l'utilsateur ne saisi pas d'entier valide au CAS PARMI il est renvoyé dans la procédure menu.(cela me sert de boucle de vérification.)
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE choix (nChoix : ENTIER)
+debut
+
+CAS PARMI
+	CAS nChoix=1 : entToRom()
+	CAS nChoix=2 : RomToEnt()
+	CAS PARDEFAUT : menu()
+FINCASPARMI
+
+FINPROCEDURE
+
+
+
+
+ //////PROCEDURE menu////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Description :La procedure menu permet à l'utilisateur de choisir la convertion qu'il souhaite effectuer. 
+ //
+ // Entrée : Un entier
+ //
+ // Sortie : Toutes les procédures permettant d'aboutir au souhait de l'utilisateur.
+ //
+ // Note : aucune
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+PROCEDURE menu()
+var
+nChoix : ENTIER
+
+debut
+
+
+ECRIRE Saisissez 1 pour convertir un entier en chiffre romain
+ECRIRE Saisissez 2 pour convertir un chiffre romain en entier,
+
+LIRE nChoix
+choix()
+
+FINPROCEDURE
+
+
+
+
+ //PROGRAMME PRINCIPALE
+DEBUT 
+	ECRIRE Bonjour ! Merci d'utilisez notre convertisseur de chiffres romains.
+	menu()
+FIN
+
